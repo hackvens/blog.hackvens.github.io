@@ -1,0 +1,32 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+// On ne garde que les deux premiers niveaux, sans le sommaire écrit à la main dans l'article.
+const SKIP = /^(table des matières|sommaire|table of contents)$/i;
+const all = Astro.props.headings.filter((h) => !SKIP.test(h.text.trim()));
+const top = all.length ? Math.min(...all.map((h) => h.depth)) : 0;
+const items = all.filter((h) => h.depth <= top + 1);
+---
+
+{
+  items.length >= 3 && (
+    <nav class="toc" aria-label="Sur cette page">
+      <p class="toc-title">Sur cette page</p>
+      <ol>
+        {items.map((h) => (
+          <li class:list={{ sub: h.depth > top }}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}

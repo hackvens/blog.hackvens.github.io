@@ -1,0 +1,50 @@
+---
+import { SECTIONS, withBase } from '../lib/posts';
+
+const aboutPath = withBase('/about/');
+const onAbout = Astro.url.pathname === aboutPath;
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="wordmark" href={withBase('/')} aria-label="Hackvens — accueil"><span>Hack</span><span>vens</span></a>
+
+    <nav aria-label="Navigation principale">
+      <ul>
+        {
+          Object.entries(SECTIONS).map(([id, section]) => (
+            <li>
+              <a href={withBase(`/#${id}`)}>{section.label}</a>
+            </li>
+          ))
+        }
+        <li><a href={aboutPath} aria-current={onAbout ? 'page' : undefined}>À propos</a></li>
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <a class="icon-btn" href={withBase('/feed.xml')} aria-label="Flux RSS" title="Flux RSS">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M5 11a8 8 0 0 1 8 8M5 4a15 15 0 0 1 15 15"></path>
+          <circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Changer de thème" title="Changer de thème">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5"></circle>
+          <path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+</script>

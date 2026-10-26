@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import { SECTIONS, SITE, getPosts, groupByEvent, type Section } from '../lib/posts';
+
+const posts = await getPosts();
+const order: Section[] = ['advisories', 'articles', 'writeups'];
+const sections = order.map((id) => ({
+  id,
+  ...SECTIONS[id],
+  posts: posts.filter((p) => p.data.section === id),
+}));
+---
+
+<Base>
+  <div class="wrap">
+    <section class="intro">
+      <h1>{SITE.tagline}</h1>
+      <p>{SITE.description}</p>
+    </section>
+
+    {
+      sections.map((section) => (
+        <section class="index-section" id={section.id} aria-labelledby={`${section.id}-title`}>
+          <div class="index-head">
+            <h2 id={`${section.id}-title`}>{section.label}</h2>
+            <span class="count" aria-label={`${section.posts.length} publications`}>{String(section.posts.length).padStart(2, '0')}</span>
+          </div>
+          <p class="blurb">{section.blurb}</p>
+
+          {section.id === 'writeups' ? (
+            groupByEvent(section.posts).map((group) => (
+              <div class="group">
+                <h3>{group.event}</h3>
+                <ul class="rows">
+                  {group.posts.map((post) => <PostRow post={post} />)}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <ul class="rows">
+              {section.posts.map((post) => <PostRow post={post} />)}
+            </ul>
+          )}
+        </section>
+      ))
+    }
+  </div>
+</Base>

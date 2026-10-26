@@ -1,0 +1,14 @@
+---
+import { SITE, withBase } from '../lib/posts';
+---
+
+<footer class="site-footer">
+  <div class="wrap bar">
+    <p>© {new Date().getFullYear()} Hackvens</p>
+    <ul>
+      <li><a href={SITE.github} rel="noopener">GitHub</a></li>
+      <li><a href={SITE.twitter} rel="noopener">X / Twitter</a></li>
+      <li><a href={withBase('/feed.xml')}>RSS</a></li>
+    </ul>
+  </div>
+</footer>

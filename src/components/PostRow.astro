@@ -1,0 +1,16 @@
+---
+import { formatDate, postUrl, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<li class="row">
+  <a href={postUrl(post)} lang={post.data.lang}>
+    <time datetime={formatDate(post.data.date, 'iso')}>{formatDate(post.data.date, 'iso')}</time>
+    <span class="row-title">{post.data.title}</span>
+  </a>
+</li>

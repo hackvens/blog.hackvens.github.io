@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/posts';
+---
+
+<Base title="À propos" description="À propos du blog Hackvens : organisation de CTF et writeups de l’équipe.">
+  <div class="wrap">
+    <section class="intro">
+      <h1>À propos</h1>
+    </section>
+    <div class="prose">
+      <p>
+        Hackvens est une équipe de passionnés de sécurité offensive. Ce blog rassemble ce que nous
+        publions : les <em>advisories</em> sur les vulnérabilités que nous découvrons, des articles
+        sur nos outils, nos recherches et les conférences que nous suivons, et les writeups des CTF
+        auxquels nous participons ou que nous organisons.
+      </p>
+      <p>
+        Le code de nos outils est sur <a href={SITE.github} rel="noopener">GitHub</a> et nous sommes
+        aussi sur <a href={SITE.twitter} rel="noopener">X / Twitter</a>.
+      </p>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { withBase } from '../lib/posts';
+---
+
+<Base title="Page introuvable" description="Cette page n’existe pas.">
+  <div class="wrap">
+    <section class="intro">
+      <p class="code404">404</p>
+      <h1>Page introuvable</h1>
+      <p>Cette adresse ne correspond à aucune publication. <a href={withBase('/')}>Retour à l’accueil</a>.</p>
+    </section>
+  </div>
+</Base>
