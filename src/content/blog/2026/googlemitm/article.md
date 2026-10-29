@@ -1,4 +1,9 @@
-# Bypassing BotGuard and DBSC, A Technical Study of GWS and GCP Session Hijacking
+---
+title: "Bypassing BotGuard and DBSC, A Technical Study of GWS and GCP Session Hijacking"
+date: 2026-10-29
+section: articles
+lang: en
+---
 
 ## Abstract
 
